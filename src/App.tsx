@@ -22,7 +22,17 @@ import {
   Terminal,
   MessageSquare,
   Sparkles,
-  FileText
+  FileText,
+  Users,
+  Laptop,
+  GraduationCap,
+  School,
+  Trophy,
+  Landmark,
+  Star,
+  Tablet,
+  BarChart2,
+  BadgeCheck
 } from 'lucide-react';
 import {
   PERSONAL_INFO,
@@ -157,17 +167,39 @@ const SectionHeader: React.FC<{ title: string; subtitle?: string; icon: React.Re
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-100px" }}
-    className="mb-16"
+    className="mb-6 md:mb-8 flex flex-col items-center text-center"
   >
-    <div className="flex items-center gap-4 mb-4">
-      <div className="w-14 h-14 rounded-2xl bg-theme flex items-center justify-center text-white shadow-xl" style={{ boxShadow: '0 8px 20px -5px var(--theme-glow)' }}>
-        {icon}
-      </div>
-      <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">{title}</h2>
+    <div className="w-16 h-16 rounded-[1.5rem] bg-theme-soft text-theme flex items-center justify-center mb-6 shadow-sm border border-theme" style={{ borderColor: 'var(--theme-glow)' }}>
+      {icon}
     </div>
-    {subtitle && <p className="text-slate-500 max-w-2xl text-lg font-medium ml-1 mr-auto">{subtitle}</p>}
+    <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter mb-4">{title}</h2>
+    {subtitle && <p className="text-slate-500 max-w-2xl text-lg font-medium mb-8">{subtitle}</p>}
+    <div className="flex items-center justify-center gap-2">
+      <div className="w-12 h-1 bg-theme rounded-full"></div>
+      <div className="w-2 h-2 bg-theme rounded-full"></div>
+    </div>
   </motion.div>
 );
+
+const getProjectIcon = (name?: string) => {
+  if (name === 'Users') return <Users size={32} className="text-theme" />;
+  if (name === 'Laptop') return <Laptop size={32} className="text-theme" />;
+  return <Code size={32} className="text-theme" />;
+};
+
+const getAchievementIcon = (name?: string, size = 28) => {
+  switch (name) {
+    case 'Trophy': return <Trophy size={size} />;
+    case 'GraduationCap': return <GraduationCap size={size} />;
+    case 'Users': return <Users size={size} />;
+    case 'Code': return <Code size={size} />;
+    case 'Star': return <Star size={size} />;
+    case 'Tablet': return <Tablet size={size} />;
+    case 'BarChart2': return <BarChart2 size={size} />;
+    case 'BadgeCheck': return <BadgeCheck size={size} />;
+    default: return <Award size={size} />;
+  }
+};
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -216,7 +248,7 @@ const App: React.FC = () => {
               </h1>
 
               <p className="text-lg md:text-2xl text-slate-600 mb-10 leading-relaxed max-w-2xl font-medium mx-auto lg:mx-0">
-                Hi, I'm <span className="text-slate-900 font-bold underline decoration-4 underline-offset-4" style={{ textDecorationColor: 'var(--theme-primary)' }}>{PERSONAL_INFO.name}</span>. I build intelligent web applications and IoT systems that solve real-world problems.
+                Hi, I'm <span className="text-slate-900 font-bold underline decoration-4 underline-offset-4" style={{ textDecorationColor: 'var(--theme-primary)' }}>{PERSONAL_INFO.name}</span>. Information Technology student with hands-on experience in software development and building responsive web applications.
               </p>
 
               <div className="flex flex-wrap justify-center lg:justify-start gap-6 items-center">
@@ -280,12 +312,12 @@ const App: React.FC = () => {
             >
               <div className="relative group max-w-[400px] w-full px-4 lg:px-0">
                 {/* Glow Backdrop */}
-                <div className="absolute -inset-8 bg-theme-soft rounded-[4rem] blur-[50px] -z-10 transition-colors opacity-50" style={{ backgroundColor: 'var(--theme-glow)' }}></div>
+                <div className="absolute -inset-8 bg-theme-soft rounded-full blur-[50px] -z-10 transition-colors opacity-50" style={{ backgroundColor: 'var(--theme-glow)' }}></div>
 
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-full aspect-[3/4] bg-slate-100 rounded-[3rem] shadow-2xl relative overflow-hidden transition-all duration-700 border-[8px] border-white ring-1 ring-slate-100"
+                  className="w-full aspect-square bg-slate-100 rounded-full shadow-2xl relative overflow-hidden transition-all duration-700 border-[8px] border-white ring-1 ring-slate-100"
                 >
                   <img
                     src={PERSONAL_INFO.profileImage}
@@ -319,7 +351,7 @@ const App: React.FC = () => {
       </section>
 
       {/* About Section - Photo Always Visible Here Too */}
-      <section id="about" className="py-32 bg-slate-50/50">
+      <section id="about" className="py-8 md:py-10 bg-slate-50/50">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="About Me"
@@ -358,7 +390,7 @@ const App: React.FC = () => {
       {/* ... Keeping the structure identical to previous successful version but ensuring high visibility ... */}
 
       {/* Skills Section */}
-      <section id="skills" className="py-32 bg-white">
+      <section id="skills" className="py-8 md:py-10 bg-white">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Technical Arsenal"
@@ -398,35 +430,47 @@ const App: React.FC = () => {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-32 bg-slate-50/50">
+      <section id="education" className="py-8 md:py-10 bg-slate-50/50">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Education"
             subtitle="My academic background."
             icon={<BookOpen size={28} />}
           />
-          <div className="grid gap-8">
+          <div className="flex flex-col gap-4 max-w-4xl mx-auto">
             {EDUCATION.map((edu, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-10 rounded-[3rem] bg-white border border-slate-100 hover:border-theme hover:shadow-2xl transition-all group"
+                className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 hover:border-theme hover:shadow-lg transition-all group flex flex-col sm:flex-row items-start sm:items-center gap-6 relative"
               >
-                <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-2">{edu.degree}</h3>
-                    <p className="text-xl font-medium text-slate-600">{edu.institution}</p>
-                  </div>
-                  <span className="px-5 py-2 bg-theme-soft text-theme font-bold rounded-xl text-sm whitespace-nowrap border border-theme" style={{ borderColor: 'var(--theme-glow)' }}>
-                    {edu.period}
-                  </span>
+                {/* Icon Container */}
+                <div className="w-14 h-14 shrink-0 rounded-2xl bg-theme-soft text-theme flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                  {idx === 0 ? <GraduationCap size={28} /> : <School size={28} />}
                 </div>
-                <p className="text-lg text-slate-500 font-medium leading-relaxed">
-                  {edu.details}
-                </p>
+                
+                {/* Text Content */}
+                <div className="flex-1 w-full">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
+                    <h3 className="text-xl font-black text-slate-900 group-hover:text-theme transition-colors leading-tight">
+                      {edu.degree}
+                    </h3>
+                    <span className="px-3 py-1 bg-slate-50 text-slate-500 font-bold rounded-lg text-xs whitespace-nowrap border border-slate-200">
+                      {edu.period}
+                    </span>
+                  </div>
+                  <p className="text-base font-black text-theme mb-3">
+                    {edu.institution}
+                  </p>
+                  <div className="inline-flex">
+                    <span className="px-3 py-1 bg-theme-soft text-theme font-bold rounded-lg text-xs border border-theme" style={{ borderColor: 'var(--theme-glow)' }}>
+                      {edu.details}
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -434,14 +478,14 @@ const App: React.FC = () => {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-32 bg-white">
+      <section id="experience" className="py-8 md:py-10 bg-white">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Experience"
             subtitle="Professional internships and industry exposure."
             icon={<User size={28} />}
           />
-          <div className="grid gap-8">
+          <div className="grid lg:grid-cols-2 gap-8">
             {LEADERSHIP.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -449,20 +493,82 @@ const App: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-10 rounded-[3rem] bg-slate-50 border border-slate-100 hover:border-blue-400 hover:shadow-2xl transition-all group"
+                className="bg-white rounded-[3rem] p-10 flex flex-col items-center text-center border border-slate-100 shadow-sm hover:shadow-xl hover:border-theme transition-all group"
               >
-                <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-2">{item.title}</h3>
-                    <p className="text-xl font-medium text-slate-600">{item.organization}</p>
-                  </div>
-                  <span className="px-5 py-2 bg-theme-soft text-theme font-bold rounded-xl text-sm whitespace-nowrap border border-theme" style={{ borderColor: 'var(--theme-glow)' }}>
+                {/* Logo Container */}
+                <div className="w-20 h-20 sm:w-24 sm:h-24 mb-6 rounded-full bg-white border border-slate-100 flex items-center justify-center p-4 group-hover:scale-105 transition-transform overflow-hidden shadow-sm">
+                  {item.logo ? (
+                    <img src={item.logo} alt={item.organization} className="w-full h-full object-contain mix-blend-multiply" />
+                  ) : (
+                    <User size={40} className="text-theme" />
+                  )}
+                </div>
+
+                {/* Header Info */}
+                <h3 className="text-2xl font-black text-slate-900 mb-2 leading-tight group-hover:text-theme transition-colors">{item.title}</h3>
+                <h4 className="text-lg font-bold text-slate-700 mb-4">{item.organization}</h4>
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+                  <span className="px-4 py-1.5 bg-slate-50 text-slate-500 font-bold rounded-xl text-xs sm:text-sm border border-slate-100">
                     {item.period}
                   </span>
+                  {item.type && (
+                    <span className="px-4 py-1.5 bg-theme-soft text-theme font-bold rounded-xl text-xs sm:text-sm border border-theme" style={{ borderColor: 'var(--theme-glow)' }}>
+                      {item.type}
+                    </span>
+                  )}
                 </div>
-                <p className="text-lg text-slate-500 font-medium leading-relaxed">
+
+                <div className="w-full h-px bg-slate-100 mb-8"></div>
+
+                {/* Description */}
+                <p className="text-slate-600 font-medium leading-relaxed mb-8">
                   {item.description}
                 </p>
+
+                {/* Contributions */}
+                {item.contributions && (
+                  <ul className="text-left w-full space-y-3 mb-8">
+                    {item.contributions.map((point, i) => (
+                      <li key={i} className="flex items-start gap-3 text-slate-600 text-sm font-medium">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-theme shrink-0"></span>
+                        <span className="leading-relaxed">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Tags */}
+                {item.tags && (
+                  <div className="flex flex-wrap justify-center gap-2 mb-8 mt-auto w-full">
+                    {item.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="px-3 py-1.5 bg-slate-50 text-xs font-black text-slate-500 rounded-lg border border-slate-200">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="w-full h-px bg-slate-100 mb-6 mt-auto"></div>
+
+                {/* Button */}
+                {item.link ? (
+                  <motion.a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    className="px-6 py-3 bg-white text-slate-900 border border-slate-200 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors shadow-sm w-full sm:w-auto mt-auto group-hover:border-slate-300 group-hover:text-theme"
+                  >
+                    View Experience ↗
+                  </motion.a>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    className="px-6 py-3 bg-white text-slate-900 border border-slate-200 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors shadow-sm w-full sm:w-auto mt-auto group-hover:border-slate-300 group-hover:text-theme"
+                  >
+                    View Experience ↗
+                  </motion.button>
+                )}
               </motion.div>
             ))}
           </div>
@@ -470,7 +576,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-32 bg-slate-50/50">
+      <section id="projects" className="py-8 md:py-10 bg-slate-50/50">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Projects"
@@ -484,61 +590,54 @@ const App: React.FC = () => {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="group bg-white rounded-[3.5rem] overflow-hidden flex flex-col border border-slate-100 hover:border-blue-400 transition-all hover:shadow-3xl"
+                className="group bg-white rounded-[1.5rem] flex flex-col border border-slate-200 hover:-translate-y-1 hover:shadow-xl hover:border-theme/30 transition-all duration-300"
               >
-                <div className="p-12 flex flex-col h-full">
-                  <div className="flex justify-between items-start mb-8">
-                    <h3 className="text-3xl font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tighter">
-                      {project.title}
-                    </h3>
-                    <div className="flex gap-4">
-                      {project.githubLink && (
-                        <motion.a
-                          whileHover={{ scale: 1.1, y: -5 }}
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-4 bg-slate-50 rounded-2xl shadow-sm text-slate-400 hover:text-theme transition-all border border-slate-100"
-                          title="View on GitHub"
-                        >
-                          <Github size={20} />
-                        </motion.a>
-                      )}
-                      {project.driveLink && (
-                        <motion.a
-                          whileHover={{ scale: 1.1, y: -5 }}
-                          href={project.driveLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-4 bg-slate-50 rounded-2xl shadow-sm text-slate-400 hover:text-theme transition-all border border-slate-100"
-                          title="Project Files"
-                        >
-                          <FileText size={20} />
-                        </motion.a>
-                      )}
-                      {project.link && project.link !== '#' && (
-                        <motion.a
-                          whileHover={{ scale: 1.1, y: -5 }}
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-4 bg-slate-50 rounded-2xl shadow-sm text-slate-400 hover:text-theme transition-all border border-slate-100"
-                          title="Live Demo"
-                        >
-                          <ExternalLink size={20} />
-                        </motion.a>
-                      )}
-                    </div>
+                <div className="p-8 md:p-10 flex flex-col items-center text-center h-full">
+                  {/* Icon */}
+                  <div className="w-14 h-14 rounded-[1rem] bg-theme-soft/50 border border-theme/20 flex items-center justify-center text-theme group-hover:scale-110 transition-transform duration-300 shadow-sm mb-4">
+                    {getProjectIcon(project.icon)}
                   </div>
-                  <p className="text-slate-600 leading-relaxed text-xl mb-12 font-medium">
+                  
+                  {/* Title */}
+                  <h3 className="text-[22px] md:text-2xl font-black text-slate-900 group-hover:text-theme transition-colors leading-tight mb-1.5">
+                    {project.title}
+                  </h3>
+                  
+                  {/* Category */}
+                  {project.category && (
+                    <span className="text-xs font-bold text-theme uppercase tracking-widest mb-5">
+                      {project.category}
+                    </span>
+                  )}
+                  
+                  {/* Description */}
+                  <p className="text-slate-600 text-[15px] md:text-base leading-relaxed max-w-[520px] mb-6">
                     {project.description}
                   </p>
-                  <div className="mt-auto flex flex-wrap gap-3">
+                  
+                  {/* Technologies */}
+                  <div className="flex flex-wrap justify-center gap-2 mb-7">
                     {project.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="px-5 py-2.5 bg-slate-50 text-sm font-black text-slate-500 rounded-xl border border-slate-200 group-hover:border-theme-soft group-hover:text-theme transition-colors">
+                      <span key={tIdx} className="px-3 py-1 bg-slate-50 text-[11px] font-bold text-slate-600 rounded-full border border-slate-200">
                         {tag}
                       </span>
                     ))}
+                  </div>
+                  
+                  {/* GitHub Button */}
+                  <div className="mt-auto pt-2">
+                    {project.githubLink && (
+                      <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-5 py-2.5 bg-white text-slate-800 border border-slate-200 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-50 transition-colors shadow-sm text-sm"
+                      >
+                        <Github size={16} />
+                        View on GitHub &rarr;
+                      </motion.a>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -548,44 +647,96 @@ const App: React.FC = () => {
       </section>
 
       {/* Achievements Section */}
-      <section id="achievements" className="py-32 bg-white">
+      <section id="achievements" className="py-8 md:py-10 bg-white">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Achievements"
             subtitle="Recognition for excellence and innovation."
             icon={<Award size={28} />}
           />
-          <div className="grid gap-8">
-            {ACHIEVEMENTS.map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="group bg-slate-50 rounded-[3.5rem] p-10 border border-slate-100 hover:border-theme transition-all hover:shadow-2xl"
-              >
-                <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tighter mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xl font-medium text-slate-600">{item.organization}</p>
+          <div className="relative max-w-5xl mx-auto -mt-2">
+            {/* Center Vertical Line */}
+            <div className="hidden lg:block absolute left-1/2 top-8 bottom-8 w-1 bg-theme -translate-x-1/2 opacity-20 rounded-full"></div>
+
+            <div className="flex flex-col gap-12 lg:gap-16 relative">
+              {ACHIEVEMENTS.map((item, idx) => {
+                const isEven = idx % 2 === 0;
+                return (
+                  <div key={idx} className={`flex flex-col lg:flex-row items-center w-full ${isEven ? 'lg:justify-start' : 'lg:justify-end'} relative`}>
+                    
+                    {/* Timeline Node */}
+                    <div className="hidden lg:block absolute left-1/2 top-12 w-5 h-5 rounded-full bg-white border-[5px] border-theme shadow-md -translate-x-1/2 z-10"></div>
+                    
+                    {/* Card */}
+                    <motion.div
+                      initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      viewport={{ once: true }}
+                      className={`group bg-slate-100/60 rounded-[2.5rem] p-6 lg:p-8 border border-slate-200 hover:border-theme transition-all shadow-sm hover:shadow-xl relative overflow-hidden flex flex-col w-full lg:w-[480px] min-h-[300px] lg:h-[320px] ${isEven ? 'lg:mr-10' : 'lg:ml-10'}`}
+                    >
+                      {/* Thick Left Border Accent */}
+                      <div className="absolute left-0 top-8 bottom-8 w-2 bg-theme rounded-r-xl"></div>
+
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-4 mb-5 relative pl-3">
+                        <div className="flex flex-col sm:flex-row gap-4 items-start">
+                          {/* Icon Circle */}
+                          {item.icon && (
+                            <div className="w-16 h-16 shrink-0 rounded-full bg-slate-200/50 border-2 border-dashed border-slate-300 flex items-center justify-center p-3">
+                              <div className="w-full h-full bg-white rounded-full flex items-center justify-center shadow-sm text-theme">
+                                {getAchievementIcon(item.icon, 24)}
+                              </div>
+                            </div>
+                          )}
+                          <div>
+                            <h3 className="text-xl md:text-2xl font-black text-slate-900 group-hover:text-theme transition-colors tracking-tighter mb-1.5">
+                              {item.title}
+                            </h3>
+                            <div className="flex items-center gap-2 text-theme font-bold text-sm">
+                              <Landmark size={14} />
+                              {item.organization}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Year Badge */}
+                        <span className="px-4 py-1.5 bg-yellow-100/80 text-yellow-800 font-black rounded-xl text-xs whitespace-nowrap self-start">
+                          {item.year}
+                        </span>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-slate-600 leading-relaxed text-base font-medium mb-6 pl-3 flex-grow">
+                        {item.description}
+                      </p>
+
+                      {/* Metrics */}
+                      {item.metrics && (
+                        <div className="grid grid-cols-3 gap-2 pl-3 mt-auto">
+                          {item.metrics.map((metric, mIdx) => (
+                            <div key={mIdx} className="flex flex-col items-center text-center gap-2">
+                              <div className="text-theme shrink-0">
+                                {getAchievementIcon(metric.icon, 20)}
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <span className="text-[13px] font-black text-slate-900 leading-tight mb-1">{metric.label}</span>
+                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest leading-none text-center">{metric.sublabel}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </motion.div>
                   </div>
-                  <span className="px-5 py-2 bg-yellow-50 text-yellow-700 font-bold rounded-xl text-sm whitespace-nowrap border border-yellow-200 self-start">
-                    {item.year}
-                  </span>
-                </div>
-                <p className="text-slate-600 leading-relaxed text-lg font-medium">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Certifications Section */}
-      <section id="certs" className="py-24 bg-slate-50/50">
+      <section id="certs" className="py-8 md:py-10 bg-slate-50/50">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Certifications"
@@ -603,23 +754,28 @@ const App: React.FC = () => {
                 whileHover={{ y: -5, scale: 1.02 }}
                 className="p-6 bg-white rounded-3xl border border-slate-100 hover:border-theme hover:shadow-xl transition-all group flex flex-col items-center text-center gap-4"
               >
-                <div className="w-16 h-16 rounded-2xl bg-theme-soft text-theme flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                  <Award size={32} />
+                <div className="w-16 h-16 rounded-2xl bg-theme-soft text-theme flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm overflow-hidden p-3">
+                  {cert.logo ? (
+                    <img src={cert.logo} alt={cert.title} className="w-full h-full object-contain mix-blend-multiply" />
+                  ) : (
+                    <Award size={32} />
+                  )}
                 </div>
                 <div>
                   <h3 className="text-base font-black text-slate-900 leading-tight mb-2 group-hover:text-theme transition-colors line-clamp-2">
                     {cert.title}
                   </h3>
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-                    {cert.issuer}
+                    {cert.issuer} {cert.year && `• ${cert.year}`}
                   </p>
                   {cert.link && (
                     <a 
                       href={cert.link} 
                       target="_blank" 
+                      rel="noopener noreferrer"
                       className="mt-4 inline-flex items-center gap-2 text-xs font-black text-theme hover:underline"
                     >
-                      View Certificate <ExternalLink size={12} />
+                      View Certificate ↗
                     </a>
                   )}
                 </div>
@@ -630,7 +786,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 bg-white">
+      <section id="contact" className="py-8 md:py-10 bg-white">
         <div className="container mx-auto px-6">
           <SectionHeader
             title="Let's Connect"
