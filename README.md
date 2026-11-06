@@ -31,7 +31,6 @@ Developed a centralized digital platform for alumni data management and engageme
 - Java 17
 - Spring Boot
 - PostgreSQL
-- Thymeleaf
 - Spring Security
 
 ### VidyaLink – Offline Learning Platform
