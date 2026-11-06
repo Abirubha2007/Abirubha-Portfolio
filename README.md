@@ -25,7 +25,7 @@ I am a B.Tech Information Technology student with hands-on experience in softwar
 ## Projects
 
 ### Alumni Portal
-Developed a centralized digital platform for alumni data management and engagement. Implemented role-based authentication and access control for Admin, Alumni, and Student users. Built Alumni approval workflow, Alumni Directory search, Event Management and Registration, and Job Portal features for posting and applying to jobs.
+Developed a centralized digital platform for alumni data management and engagement. Implemented role-based authentication and access control for Admin, Alumni, and Student as a users. Built Alumni approval workflow, Alumni Directory search, Event Management and Registration, and Job Portal features for posting and applying to jobs.
 
 **Technologies:**
 - Java 17
